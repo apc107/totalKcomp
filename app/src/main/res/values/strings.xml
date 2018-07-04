@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">totalKomp</string>
+    <string name="tvBarcode">Barcode:</string>
+    <string name="tcScanned">Scanned</string>
 </resources>
