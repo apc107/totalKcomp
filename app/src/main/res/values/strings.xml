@@ -1,5 +1,18 @@
 <resources>
     <string name="app_name">totalKomp</string>
-    <string name="tvBarcode">Barcode:</string>
-    <string name="tcScanned">Scanned</string>
+    <string name="barcodeScanned">Barcode: </string>
+    <string name="scanned">Scanned</string>
+    <string name="permissionRequirementExplanation">This app relies on CAMERA permission to function</string>
+    <string name="googleAdsKey">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="barcodeImageCaptured">Barcode Image Captured</string>
+    <string name="product">Product: </string>
+    <string name="name">Name</string>
+    <string name="turnOffTorch">Turn Off Torch</string>
+    <string name="turnOnTorch">Turn On Torch</string>
+    <string name="tvGooglePlaces">Location: </string>
+    <string name="etGooglePlaces">Google Places</string>
+    <string name="tvPrice">Price: </string>
+    <string name="etPrice">Price</string>
+    <string name="pauseDecoratedBarcodeView">Pause Barcode View</string>
+    <string name="resumeDecoratedBarcodeView">Resume Barcode View</string>
 </resources>
