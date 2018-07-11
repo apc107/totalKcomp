@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity" >
 
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -15,14 +16,14 @@
         android:layout_marginTop="8dp"
         android:layout_weight="1"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        ads:adUnitId="@string/googleAdsKey"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent"
         ads:layout_constraintTop_toTopOf="parent" />
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/decoratedBarcodeView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="180dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -30,40 +31,175 @@
         android:layout_weight="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adView" />
+        app:layout_constraintTop_toBottomOf="@+id/adView" >
+
+        <ImageButton
+            android:id="@+id/btnToggleTorch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="16dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/turnOnTorch"
+            android:onClick="toggleTorch"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/turn_on_torch" />
+
+        <ImageButton
+            android:id="@+id/btnToggleDecoratedBarcodeView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/pauseDecoratedBarcodeView"
+            android:onClick="toggleDecoratedBarcodeView"
+            app:srcCompat="@drawable/pause_barcode_view" />
+    </com.journeyapps.barcodescanner.DecoratedBarcodeView>
 
     <LinearLayout
+        android:id="@+id/contentContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        android:padding="8dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/decoratedBarcodeView">
+        app:layout_constraintTop_toBottomOf="@+id/decoratedBarcodeView"
+        app:layout_constraintVertical_bias="1.0">
 
-        <TextView
-            android:id="@+id/tvBarcode"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:gravity="end"
-            android:padding="5dp"
-            android:text="@string/tvBarcode"
-            android:textSize="18sp" />
+        <ImageView
+            android:id="@+id/ivScanned"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/barcodeImageCaptured"
+            app:srcCompat="@android:drawable/star_off" />
 
-        <TextView
+        <LinearLayout
             android:id="@+id/barcodeScanned"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".7"
-            android:padding="5dp"
-            android:text="@string/tcScanned"
-            android:textSize="18sp" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvBarcode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".4"
+                android:gravity="end"
+                android:padding="8dp"
+                android:text="@string/barcodeScanned"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvScanned"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".6"
+                android:padding="8dp"
+                android:text="@string/scanned"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/productNameLookedup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvProduct"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".4"
+                android:gravity="end"
+                android:padding="8dp"
+                android:text="@string/product"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".6"
+                android:focusable="auto"
+                android:hint="@string/name"
+                android:inputType="text"
+                android:padding="8dp"
+                android:singleLine="true"
+                android:text="@string/name"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/googlePlacesLookedup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvPlace"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".4"
+                android:gravity="end"
+                android:padding="8dp"
+                android:text="@string/tvGooglePlaces"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etGooglePlace"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".6"
+                android:focusable="auto"
+                android:hint="@string/name"
+                android:inputType="text"
+                android:padding="8dp"
+                android:singleLine="true"
+                android:text="@string/etGooglePlaces"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/productPriceLookedup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".4"
+                android:gravity="end"
+                android:padding="8dp"
+                android:text="@string/tvPrice"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".6"
+                android:focusable="auto"
+                android:hint="@string/name"
+                android:inputType="text"
+                android:padding="8dp"
+                android:singleLine="true"
+                android:text="@string/etPrice"
+                android:textSize="18sp" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
