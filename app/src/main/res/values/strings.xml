@@ -15,4 +15,6 @@
     <string name="etPrice">Price</string>
     <string name="pauseDecoratedBarcodeView">Pause Barcode View</string>
     <string name="resumeDecoratedBarcodeView">Resume Barcode View</string>
+    <string name="tvDate">Date: </string>
+    <string name="etDate">Date</string>
 </resources>
