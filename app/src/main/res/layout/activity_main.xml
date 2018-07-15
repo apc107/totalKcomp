@@ -42,8 +42,6 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/turnOnTorch"
             android:onClick="toggleTorch"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
             android:src="@drawable/turn_on_torch" />
 
         <ImageButton
