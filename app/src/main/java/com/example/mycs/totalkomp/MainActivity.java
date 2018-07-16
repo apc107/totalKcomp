@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
             public void afterTextChanged(Editable editable) {
                 beepManager.playBeepSoundAndVibrate();
                 toggleDecoratedBarcodeView(decoratedBarcodeView);
+                query();
             }
         });
 
@@ -313,9 +314,9 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
             case R.id.btnDel:
                 delete();
                 break;
-            case R.id.btnQuery:
-                query();
-                break;
+//            case R.id.btnQuery:
+//                query();
+//                break;
         }
     }
 
