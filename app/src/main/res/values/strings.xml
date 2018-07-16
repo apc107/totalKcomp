@@ -10,7 +10,7 @@
     <string name="turnOffTorch">Turn Off Torch</string>
     <string name="turnOnTorch">Turn On Torch</string>
     <string name="tvGooglePlaces">Location: </string>
-    <string name="etGooglePlaces">Google Places</string>
+    <string name="etGooglePlaces">Places</string>
     <string name="tvPrice">Price: </string>
     <string name="etPrice">Price</string>
     <string name="pauseDecoratedBarcodeView">Pause Barcode View</string>

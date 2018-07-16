@@ -24,7 +24,7 @@
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/decoratedBarcodeView"
         android:layout_width="0dp"
-        android:layout_height="136dp"
+        android:layout_height="200dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"

@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
         pauseDecoratedBarcodeView = getResources().getDrawable(R.drawable.pause_barcode_view, null);
         resumeDecoratedBarcodeView = getResources().getDrawable(R.drawable.resume_barcode_view, null);
 
-        if (ContextCompat.checkSelfPermission(this, permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             startActivity(new Intent(MainActivity.this, SplashPermissionActivity.class));
             finish();
         }
