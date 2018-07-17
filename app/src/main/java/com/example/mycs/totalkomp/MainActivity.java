@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
     private SQLiteDatabase db;
     private String TABLE_NAME = "tk1", TABLE_NAME2 = "tk2";
     private String sql, sql2;
-    Button btnAdd, btnDel, btnQuery;
+    Button btnAdd, btnDel; // btnQuery;
     String newName, newCode, newPrice, newPlace, newDate, key_code;
     int id , code;
     //---------------------------
@@ -231,8 +231,8 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
         btnAdd.setOnClickListener(this);
         btnDel = findViewById(R.id.btnDel);
         btnDel.setOnClickListener(this);
-        btnQuery = findViewById(R.id.btnQuery);
-        btnQuery.setOnClickListener(this);
+//        btnQuery = findViewById(R.id.btnQuery);
+//        btnQuery.setOnClickListener(this);
     }
 
     private void add() {
