@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
     private SQLiteDatabase db;
     private String TABLE_NAME = "tk1", TABLE_NAME2 = "tk2";
     private String sql, sql2;
-    Button btnAdd, btnDel, btnQuery;
+    Button btnAdd, btnDel; // btnQuery;
     String newName, newCode, newPrice, newPlace, newDate, key_code;
     int id , code;
     //---------------------------
@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
             public void afterTextChanged(Editable editable) {
                 beepManager.playBeepSoundAndVibrate();
                 toggleDecoratedBarcodeView(decoratedBarcodeView);
+                query();
             }
         });
 
@@ -194,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
 
     public void toggleDecoratedBarcodeView(View view) {
         if (getString(R.string.pauseDecoratedBarcodeView).contentEquals(btnToggleDecoratedBarcodeView.getContentDescription())) {
-            decoratedBarcodeView.pauseAndWait();
+            decoratedBarcodeView.pause();
             btnToggleDecoratedBarcodeView.setImageDrawable(resumeDecoratedBarcodeView);
             btnToggleDecoratedBarcodeView.setContentDescription(stringResumeDecoratedBarcodeView);
         } else {
@@ -225,16 +226,13 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
     }
 
     private void initView() {
-        etName = findViewById(R.id.etName);
-        etPrice = findViewById(R.id.etPrice);
-        etPlace = findViewById(R.id.etPlace);
         etDate = findViewById(R.id.etDate);
         btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
         btnDel = findViewById(R.id.btnDel);
         btnDel.setOnClickListener(this);
-        btnQuery = findViewById(R.id.btnQuery);
-        btnQuery.setOnClickListener(this);
+//        btnQuery = findViewById(R.id.btnQuery);
+//        btnQuery.setOnClickListener(this);
     }
 
     private void add() {
@@ -272,7 +270,7 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
         } catch (Exception e) {
             e.printStackTrace(); //抓錯誤訊息
         } finally {
-            Toast.makeText(getApplicationContext(), "成功刪除sql資料!", Toast.LENGTH_SHORT).show();;//成功則跳出訊息
+            Toast.makeText(getApplicationContext(), "成功刪除sql資料!", Toast.LENGTH_SHORT).show();//成功則跳出訊息
         }
 //        sql2 = "DELETE FROM " + TABLE_NAME2 + " WHERE code=?"; //code ? _id?
 //        db.execSQL(sql2, new String[]{String.valueOf(code)});
@@ -284,20 +282,21 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
     }
 
     private void query() { //關聯查詢
-        key_code = tvScanned.getText().toString(); //查詢的部分取得資料 轉字串
+        key_code = lastResult; //查詢的部分取得資料 轉字串
         sql2 = "SELECT * FROM "+ TABLE_NAME2 + " Where code = ?";
         Cursor cursor = db.rawQuery(sql2, new String[]{key_code}); //cursor 抓整組資料回傳,new Object[]也行
-        Cursor cursor2 = db.rawQuery("SELECT tk1._id, tk2.code, tk2.name, tk1.place, tk1.price, tk1.date FROM tk2 INNER JOIN tk1 on tk2.code = tk1.code ", new String[]{});
 
         if(cursor.getCount()>0){ //有資料
+            Cursor cursor2 = db.rawQuery("SELECT tk1._id, tk2.code, tk2.name, tk1.place, tk1.price, tk1.date FROM tk2 INNER JOIN tk1 on tk2.code = tk1.code ", new String[]{});
             while (cursor2.moveToNext()) { //列出多筆資料要用while包起來,一筆則用"cursor.moveToNext()",cursor預設-1開始,要先移動到下一筆0才不會出錯
                 id = cursor2.getInt(0);
-                tvScanned.setText(cursor2.getString(1));//獲取第一列的值,第一列的索引從0開始
+    //            tvScanned.setText(cursor2.getString(1));//獲取第一列的值,第一列的索引從0開始
                 etName.setText(cursor2.getString(2));
                 etPlace.setText(cursor2.getString(3));
                 etPrice.setText(cursor2.getString(4));
                 etDate.setText(cursor2.getString(5));
             }
+            cursor2.close();
         }else{
             Toast.makeText(getApplicationContext(),"查無資料!是否新增?",Toast.LENGTH_SHORT).show();
         }
@@ -313,9 +312,9 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
             case R.id.btnDel:
                 delete();
                 break;
-            case R.id.btnQuery:
-                query();
-                break;
+//            case R.id.btnQuery:
+//                query();
+//                break;
         }
     }
 
