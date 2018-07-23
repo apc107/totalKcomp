@@ -353,6 +353,7 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
 
         if(cursor.getCount()>0){ //有資料
             cursor.moveToFirst();
+            etName.setText(cursor.getString(1));
             Cursor cursor2 = db.rawQuery("SELECT * FROM tk1 WHERE code = ? ORDER BY price + 0 DESC", new String[]{key_code});
             while (cursor2.moveToNext()) { //列出多筆資料要用while包起來,一筆則用"cursor.moveToNext()",cursor預設-1開始,要先移動到下一筆0才不會出錯
                 id = cursor2.getInt(0);
@@ -362,9 +363,8 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
                 btnDel.setVisibility(View.VISIBLE);
                 btnAdd.setVisibility(View.VISIBLE);
             }
-            etName.setText(cursor.getString(1));
             cursor2.close();
-        }else{
+        } else {
             Toast.makeText(getApplicationContext(),"查無資料!是否新增?",Toast.LENGTH_SHORT).show();
             btnAdd.setVisibility(View.VISIBLE);
         }
