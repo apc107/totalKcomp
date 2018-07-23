@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -58,14 +59,14 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
             BarcodeFormat.UPC_EAN_EXTENSION,
             BarcodeFormat.UPC_E,
             BarcodeFormat.UPC_A);
-    private ImageButton btnToggleTorch, btnToggleDecoratedBarcodeView;
+    private ImageButton btnToggleTorch, btnToggleDecoratedBarcodeView, btnAdd, btnDel;
     private String stringPauseDecoratedBarcodeView, stringResumeDecoratedBarcodeView;
     private Drawable pauseDecoratedBarcodeView, resumeDecoratedBarcodeView;
     //---------------------------
     private SQLiteDatabase db;
     private String TABLE_NAME = "tk1", TABLE_NAME2 = "tk2";
     private String sql, sql2;
-    Button btnAdd, btnDel; // btnQuery;
+    // btnQuery;
     String newName, newCode, newPrice, newPlace, newDate, key_code;
     int id , code;
     //---------------------------
@@ -111,6 +112,64 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
         btnToggleTorch = findViewById(R.id.btnToggleTorch);
         decoratedBarcodeView = findViewById(R.id.decoratedBarcodeView);
         btnToggleDecoratedBarcodeView = findViewById(R.id.btnToggleDecoratedBarcodeView);
+
+        etDate.setEnabled(false);
+        etPlace.setEnabled(false);
+        etPrice.setEnabled(false);
+        etName.setEnabled(false);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        etName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                btnDel.setVisibility(View.INVISIBLE);
+            }
+        });
+        etDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                btnDel.setVisibility(View.INVISIBLE);
+            }
+        });
+        etPlace.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                btnDel.setVisibility(View.INVISIBLE);
+            }
+        });
+        etPrice.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                btnDel.setVisibility(View.INVISIBLE);
+            }
+        });
+
 
         tvScanned.addTextChangedListener(new TextWatcher() {
             @Override
@@ -286,6 +345,11 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
         sql2 = "SELECT * FROM "+ TABLE_NAME2 + " Where code = ?";
         Cursor cursor = db.rawQuery(sql2, new String[]{key_code}); //cursor 抓整組資料回傳,new Object[]也行
 
+        etDate.setEnabled(true);
+        etPlace.setEnabled(true);
+        etPrice.setEnabled(true);
+        etName.setEnabled(true);
+
         if(cursor.getCount()>0){ //有資料
             Cursor cursor2 = db.rawQuery("SELECT tk1._id, tk2.code, tk2.name, tk1.place, tk1.price, tk1.date FROM tk2 INNER JOIN tk1 on tk2.code = tk1.code ", new String[]{});
             while (cursor2.moveToNext()) { //列出多筆資料要用while包起來,一筆則用"cursor.moveToNext()",cursor預設-1開始,要先移動到下一筆0才不會出錯
@@ -295,10 +359,13 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
                 etPlace.setText(cursor2.getString(3));
                 etPrice.setText(cursor2.getString(4));
                 etDate.setText(cursor2.getString(5));
+                btnDel.setVisibility(View.VISIBLE);
+                btnAdd.setVisibility(View.VISIBLE);
             }
             cursor2.close();
         }else{
             Toast.makeText(getApplicationContext(),"查無資料!是否新增?",Toast.LENGTH_SHORT).show();
+            btnAdd.setVisibility(View.VISIBLE);
         }
         cursor.close();
      }
@@ -308,9 +375,17 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
         switch (v.getId()) {
             case R.id.btnAdd:
                 add();
+                etDate.setEnabled(false);
+                etPlace.setEnabled(false);
+                etPrice.setEnabled(false);
+                etName.setEnabled(false);
+                btnAdd.setVisibility(View.INVISIBLE);
+                btnDel.setVisibility(View.INVISIBLE);
                 break;
             case R.id.btnDel:
                 delete();
+                btnAdd.setVisibility(View.VISIBLE);
+                btnDel.setVisibility(View.INVISIBLE);
                 break;
 //            case R.id.btnQuery:
 //                query();
