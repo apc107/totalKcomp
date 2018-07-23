@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
     private SQLiteDatabase db;
     private String TABLE_NAME = "tk1", TABLE_NAME2 = "tk2";
     private String sql, sql2;
-    // btnQuery;
     String newName, newCode, newPrice, newPlace, newDate, key_code;
     int id , code;
     //---------------------------
@@ -290,8 +289,6 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
         btnAdd.setOnClickListener(this);
         btnDel = findViewById(R.id.btnDel);
         btnDel.setOnClickListener(this);
-//        btnQuery = findViewById(R.id.btnQuery);
-//        btnQuery.setOnClickListener(this);
     }
 
     private void add() {
@@ -341,6 +338,10 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
     }
 
     private void query() { //關聯查詢
+//        etName.setText("");//先清空欄位
+//        etPrice.setText("");
+//        etPlace.setText("");
+//        etDate.setText("");
         key_code = lastResult; //查詢的部分取得資料 轉字串
         sql2 = "SELECT * FROM "+ TABLE_NAME2 + " Where code = ?";
         Cursor cursor = db.rawQuery(sql2, new String[]{key_code}); //cursor 抓整組資料回傳,new Object[]也行
@@ -351,17 +352,17 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
         etName.setEnabled(true);
 
         if(cursor.getCount()>0){ //有資料
-            Cursor cursor2 = db.rawQuery("SELECT tk1._id, tk2.code, tk2.name, tk1.place, tk1.price, tk1.date FROM tk2 INNER JOIN tk1 on tk2.code = tk1.code ", new String[]{});
+            cursor.moveToFirst();
+            Cursor cursor2 = db.rawQuery("SELECT * FROM tk1 WHERE code = ? ORDER BY price + 0 DESC", new String[]{key_code});
             while (cursor2.moveToNext()) { //列出多筆資料要用while包起來,一筆則用"cursor.moveToNext()",cursor預設-1開始,要先移動到下一筆0才不會出錯
                 id = cursor2.getInt(0);
-    //            tvScanned.setText(cursor2.getString(1));//獲取第一列的值,第一列的索引從0開始
-                etName.setText(cursor2.getString(2));
-                etPlace.setText(cursor2.getString(3));
-                etPrice.setText(cursor2.getString(4));
-                etDate.setText(cursor2.getString(5));
+                etPlace.setText(cursor2.getString(2));
+                etPrice.setText(cursor2.getString(3));
+                etDate.setText(cursor2.getString(4));
                 btnDel.setVisibility(View.VISIBLE);
                 btnAdd.setVisibility(View.VISIBLE);
             }
+            etName.setText(cursor.getString(1));
             cursor2.close();
         }else{
             Toast.makeText(getApplicationContext(),"查無資料!是否新增?",Toast.LENGTH_SHORT).show();
@@ -387,10 +388,7 @@ public class MainActivity extends AppCompatActivity implements DecoratedBarcodeV
                 btnAdd.setVisibility(View.VISIBLE);
                 btnDel.setVisibility(View.INVISIBLE);
                 break;
-//            case R.id.btnQuery:
-//                query();
-//                break;
-        }
+                }
     }
 
     @Override
