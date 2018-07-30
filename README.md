@@ -1,37 +1,11 @@
-## Welcome to GitHub Pages
+# totalKomp  
 
-You can use the [editor on GitHub](https://github.com/apc107/totalKomp/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+# 題目︰實體通路比價App
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## 線上通路，如︰各種網拍、各種商店街包括電視購物，其商品均已上架、數位化，在線供人瀏覽，故坊間已有多種比價網站，如飛比等…均為利用各種爬蟲爬取資料後做資料分析，然後利用、呈現給使用者。在現今這個大數據為顯學的世代，這已不是什麼新鮮事。  
+## 線下的實體通路呢？在現實生活中更常發生的消費行為，該如何來比價呢？  
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/apc107/totalKomp/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+#### 綜觀各式B2C或C2C的購物平台，不難發現一個奇特的現象，C2C的網拍平台，因進入門檻低，競爭激烈，各賣場無不想盡辦法提高自家商品的搜尋排名，花錢買的就不提了，免費的方法裡最簡單的一種就是商品標題，在字數限制內，無所不用其極地加入一堆[非(同質商品)]來增加買家們搜尋特定商品時的爆光度。   
+#### 這做法大大地提高了比價網站處理資料的難度以及降低了比價網站資料的可用度，因為各種的商品名稱不正確、規格不統一…等等。  
+#### 所以我們決定在實體通路比價時，採取傳統的Barcode掃描來達成比價標地的準確性。  
+#### 同時，為了避免採用線上比價網站資料所帶來的商品名稱和規格不統一的情況，決定以商品條碼為主，讓使用者自行輸入商品名稱。
